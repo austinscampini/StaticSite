@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Austin Scampini</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1c2c30 0%, #2f454a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(28, 44, 48, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(189, 221, 222, 0.1);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #97c8c9;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #97c8c9;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #65a9ab;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #65a9ab, #97c8c9);
+            border-radius: 2px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #bddddde;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            background: rgba(189, 221, 222, 0.05);
+            border: 1px solid rgba(151, 200, 201, 0.2);
+            color: #bddddde;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: #65a9ab;
+            color: white;
+            border-color: #65a9ab;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .project-card {
+            background: rgba(189, 221, 222, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(101, 169, 171, 0.2);
+            background: rgba(151, 200, 201, 0.1);
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #4a8d90, #65a9ab);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover .project-image::after {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .project-category {
+            color: #97c8c9;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .project-description {
+            color: #bddddde;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-tag {
+            background: rgba(151, 200, 201, 0.2);
+            color: #97c8c9;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-link {
+            flex: 1;
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .project-link.primary {
+            background: linear-gradient(135deg, #65a9ab, #4a8d90);
+            color: white;
+        }
+        
+        .project-link.primary:hover {
+            background: linear-gradient(135deg, #4a8d90, #40757a);
+            transform: translateY(-2px);
+        }
+        
+        .project-link.secondary {
+            background: transparent;
+            color: #97c8c9;
+            border-color: #97c8c9;
+        }
+        
+        .project-link.secondary:hover {
+            background: #97c8c9;
+            color: white;
+        }
+        
+        .stats-section {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            padding: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #65a9ab;
+            margin-bottom: 0.5rem;
+            animation: countUp 2s ease-out;
+        }
+        
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-label {
+            color: #bddddde;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Portfolio.</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="portfolio.html" class="nav-link active">Portfolio</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">My Portfolio</h1>
+            <p class="page-subtitle">Showcasing my best work and projects</p>
+        </div>
+        
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-filter="all">All Projects</div>
+            <div class="filter-tab" data-filter="web">Web Development</div>
+            <div class="filter-tab" data-filter="mobile">Mobile Apps</div>
+            <div class="filter-tab" data-filter="system">Systems</div>
+            <div class="filter-tab" data-filter="iot">IoT & Embedded</div>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card" data-category="web">
+                <div class="project-image">🌐</div>
+                <div class="project-content">
+                    <h3 class="project-title">E-Commerce Platform</h3>
+                    <div class="project-category">Web Development</div>
+                    <p class="project-description">
+                        Full-stack e-commerce solution with React frontend, Node.js backend, and PostgreSQL database. Features include user authentication, payment processing, and admin dashboard.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Stripe</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Live Demo</a>
+                        <a href="#" class="project-link secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="mobile">
+                <div class="project-image">📱</div>
+                <div class="project-content">
+                    <h3 class="project-title">Fitness Tracker App</h3>
+                    <div class="project-category">Mobile Development</div>
+                    <p class="project-description">
+                        Cross-platform mobile app built with React Native. Tracks workouts, nutrition, and progress with real-time analytics and social features.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Redux</span>
+                        <span class="tech-tag">Charts</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">App Store</a>
+                        <a href="#" class="project-link secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="system">
+                <div class="project-image">⚙️</div>
+                <div class="project-content">
+                    <h3 class="project-title">Distributed Cache System</h3>
+                    <div class="project-category">Systems Programming</div>
+                    <p class="project-description">
+                        High-performance distributed caching system built with C++ and Redis. Implements consistent hashing and supports horizontal scaling.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">gRPC</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Documentation</a>
+                        <a href="#" class="project-link secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="web">
+                <div class="project-image">📊</div>
+                <div class="project-content">
+                    <h3 class="project-title">Analytics Dashboard</h3>
+                    <div class="project-category">Web Development</div>
+                    <p class="project-description">
+                        Real-time analytics dashboard with interactive charts and data visualization. Built with React and D3.js for complex data representation.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">D3.js</span>
+                        <span class="tech-tag">WebSocket</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Live Demo</a>
+                        <a href="#" class="project-link secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="iot">
+                <div class="project-image">🔌</div>
+                <div class="project-content">
+                    <h3 class="project-title">Smart Home Hub</h3>
+                    <div class="project-category">IoT & Embedded</div>
+                    <p class="project-description">
+                        IoT hub for smart home automation using Raspberry Pi. Controls lights, temperature, and security with mobile app integration.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Raspberry Pi</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MQTT</span>
+                        <span class="tech-tag">React Native</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Demo Video</a>
+                        <a href="#" class="project-link secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card" data-category="system">
+                <div class="project-image">🐳</div>
+                <div class="project-content">
+                    <h3 class="project-title">Container Orchestrator</h3>
+                    <div class="project-category">Systems Programming</div>
+                    <p class="project-description">
+                        Lightweight container orchestration system similar to Kubernetes. Handles service discovery, load balancing, and auto-scaling.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">etcd</span>
+                        <span class="tech-tag">gRPC</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Documentation</a>
+                        <a href="#" class="project-link secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <h2 class="section-title" style="color: #97c8c9; margin-bottom: 2rem; font-size: 2rem;">Project Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Completed Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Technologies Used</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10k+</div>
+                    <div class="stat-label">Lines of Code</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Open Source</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                const filter = tab.getAttribute('data-filter');
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        card.style.animation = 'slideInUp 0.6s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const finalValue = stat.textContent;
+                        const numValue = parseInt(finalValue.replace(/\D/g, ''));
+                        let currentValue = 0;
+                        const increment = numValue / 50;
+                        
+                        const counter = setInterval(() => {
+                            currentValue += increment;
+                            if (currentValue >= numValue) {
+                                stat.textContent = finalValue;
+                                clearInterval(counter);
+                            } else {
+                                stat.textContent = Math.floor(currentValue) + (finalValue.includes('+') ? '+' : '');
+                            }
+                        }, 40);
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        observer.observe(document.querySelector('.stats-section'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Austin Scampini</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1c2c30 0%, #2f454a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(28, 44, 48, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(189, 221, 222, 0.1);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #97c8c9;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #97c8c9;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #65a9ab;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #65a9ab, #97c8c9);
+            border-radius: 2px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #bddddde;
+        }
+        
+        .skills-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #97c8c9;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .skill-card {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .skill-card:hover {
+            background: rgba(151, 200, 201, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(101, 169, 171, 0.2);
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .skill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #65a9ab, #97c8c9);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .skill-name {
+            font-size: 1.3rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .skill-level {
+            color: #97c8c9;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        
+        .skill-bar {
+            background: rgba(151, 200, 201, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(135deg, #65a9ab, #97c8c9);
+            border-radius: 4px;
+            transition: width 2s ease-out;
+            animation: fillProgress 2s ease-out;
+        }
+        
+        @keyframes fillProgress {
+            from {
+                width: 0;
+            }
+        }
+        
+        .skill-description {
+            color: #bddddde;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .certifications-section {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+            margin-bottom: 4rem;
+        }
+        
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .cert-item {
+            background: rgba(151, 200, 201, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .cert-item:hover {
+            background: rgba(151, 200, 201, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #65a9ab, #4a8d90);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .cert-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cert-issuer {
+            color: #97c8c9;
+            font-size: 0.9rem;
+        }
+        
+        .tools-section {
+            margin-bottom: 4rem;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .tool-item {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-item:hover {
+            background: rgba(151, 200, 201, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(101, 169, 171, 0.15);
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #97c8c9;
+        }
+        
+        .tool-name {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Portfolio.</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="skills.html" class="nav-link active">Skills</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">My Skills</h1>
+            <p class="page-subtitle">Technical expertise and proficiency levels</p>
+        </div>
+        
+        <div class="skills-section">
+            <h2 class="section-title">Programming Languages</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">☕</div>
+                        <div>
+                            <div class="skill-name">Java</div>
+                            <div class="skill-level">Advanced</div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%;"></div>
+                    </div>
+                    <div class="skill-description">
+                        Strong foundation in Java for enterprise applications, and Android development. Experience with multithreading and JVM optimization.
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">🔧</div>
+                        <div>
+                            <div class="skill-name">C/C++</div>
+                            <div class="skill-level">Advanced</div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%;"></div>
+                    </div>
+                    <div class="skill-description">
+                        Solid understanding of object oriented programming, memory management, and system programming. Used for embedded systems and micro-processor testing.
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">⚡</div>
+                        <div>
+                            <div class="skill-name">JavaScript</div>
+                            <div class="skill-level">Intermediate</div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 60%;"></div>
+                    </div>
+                    <div class="skill-description">
+                        Proficient in modern JavaScript, Node.js, and frontend frameworks. Experience with some full-stack development.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="skills-section">
+            <h2 class="section-title">Frameworks & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">⚛️</div>
+                        <div>
+                            <div class="skill-name">React</div>
+                            <div class="skill-level">Intermediate</div>
+                        </div>
+                    </div>

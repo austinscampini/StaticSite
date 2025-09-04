@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Austin Scampini</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1c2c30 0%, #2f454a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(28, 44, 48, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(189, 221, 222, 0.1);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #97c8c9;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #97c8c9;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #65a9ab;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 2rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #65a9ab, #97c8c9);
+            border-radius: 2px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #bddddde;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-bottom: 4rem;
+        }
+        
+        .about-text {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            color: #97c8c9;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .about-text p {
+            color: #bddddde;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            color: #65a9ab;
+            font-weight: 600;
+        }
+        
+        .stats-grid {
+            animation: slideInRight 1s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            background: rgba(151, 200, 201, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(101, 169, 171, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #65a9ab;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #bddddde;
+        }
+        
+        .experience-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #65a9ab, #4a8d90);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding: 2rem 0 2rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 2rem;
+            width: 16px;
+            height: 16px;
+            background: #65a9ab;
+            border-radius: 50%;
+            border: 3px solid #1c2c30;
+        }
+        
+        .timeline-content {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #65a9ab;
+        }
+        
+        .timeline-date {
+            color: #97c8c9;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .timeline-company {
+            color: #65a9ab;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .timeline-description {
+            color: #bddddde;
+            line-height: 1.6;
+        }
+        
+        .skills-overview {
+            background: rgba(189, 221, 222, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(151, 200, 201, 0.1);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category {
+            text-align: center;
+        }
+        
+        .skill-category h4 {
+            color: #97c8c9;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            color: #bddddde;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(151, 200, 201, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-list li:hover {
+            background: rgba(151, 200, 201, 0.2);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .timeline {
+                padding-left: 1rem;
+            }
+            
+            .timeline-item {
+                padding-left: 1rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Portfolio.</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="skills.html" class="nav-link">Skills</a></li>
+                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">About Me</h1>
+            <p class="page-subtitle">Get to know more about my journey and experience</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Who I Am</h3>
+                <p>
+                    I'm a passionate <span class="highlight">Computer Engineer</span> with a strong foundation in both hardware and software development. My journey in technology began with a fascination for how systems work together to create seamless user experiences.
+                </p>
+                <p>
+                    With expertise spanning from low-level system programming to high-level application development, I bring a unique perspective to solving complex technical challenges. I thrive on building efficient, scalable solutions that make a real impact.
+                </p>
+                <p>
+                    When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or mentoring aspiring engineers. I believe in continuous learning and staying at the forefront of technological innovation.
+                </p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Technologies Mastered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Problems Solved</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="experience-section">
+            <h2 class="section-title">Experience & Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2019 - Present</div>
+                        <div class="timeline-title">Applications Analyst</div>
+                        <div class="timeline-company">Santee Cooper, Moncks Corner, SC</div>
+                        <div class="timeline-description">
+                            Actively contributing to a new cloud-native HR platform, leveraging REST APIs and Databricks to centralize all HR applications and build scalable data integrations from cloud sources.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2014 - 2019</div>
+                        <div class="timeline-title">Student</div>
+                        <div class="timeline-company">University of South Carolina, Columbia, SC</div>
+                        <div class="timeline-description">
+                            Completed a Bachelor's of Science & Engineering in Computer Engineering.
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="skills-overview">
+            <h2 class="section-title">Competencies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Programming Languages</h4>
+                    <ul class="skill-list">
+                        <li>Java & Groovy</li>
+                        <li>C/C++</li>
+                        <li>JavaScript</li>
+						<li>TypeScript</li>
+						<li>System Verilog</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Systems & Tools</h4>
+                    <ul class="skill-list">
+                        <li>Linux/Unix</li>
+                        <li>Docker</li>
+                        <li>Git</li>
+                        <li>AWS</li>
+						<li>Windows</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Frameworks</h4>
+                    <ul class="skill-list">
+                        <li>React</li>
+                        <li>Node.js</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Databases</h4>
+                    <ul class="skill-list">
+                        <li>Oracle PL/SQL</li>
+                        <li>SQL Server</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
